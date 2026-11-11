@@ -5,7 +5,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-SVG="assets/icons/linux-stress-oc.svg"
+SVG="assets/icons/linstress.svg"
 SIZES="16 22 24 32 48 64 128 256 512"
 
 render() { # render <input.svg> <output.png> <width> <height>
@@ -26,11 +26,11 @@ render() { # render <input.svg> <output.png> <width> <height>
 for size in $SIZES; do
     dir="assets/icons/hicolor/${size}x${size}/apps"
     mkdir -p "$dir"
-    render "$SVG" "$dir/linux-stress-oc.png" "$size" "$size"
+    render "$SVG" "$dir/linstress.png" "$size" "$size"
 done
 
 mkdir -p assets/icons/hicolor/scalable/apps
-cp "$SVG" assets/icons/hicolor/scalable/apps/linux-stress-oc.svg
+cp "$SVG" assets/icons/hicolor/scalable/apps/linstress.svg
 render assets/logo.svg assets/logo.png 1200 360
 
 echo "Icons updated."

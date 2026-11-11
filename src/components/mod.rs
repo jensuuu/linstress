@@ -5,7 +5,7 @@
 //!
 //! Sections of the window (each one is a method on `StressApp`):
 //!   header, metrics, cpu_panel, ram_panel, gpu_panel,
-//!   safety_panel, tuning_panel, log_panel
+//!   safety_panel, tuning_panel, nvidia_panel, log_panel
 
 // Building blocks
 pub mod button;
@@ -19,6 +19,7 @@ mod gpu_panel;
 mod header;
 mod log_panel;
 mod metrics;
+mod nvidia_panel;
 mod ram_panel;
 mod safety_panel;
 mod tuning_panel;

@@ -1,9 +1,9 @@
 #!/bin/sh
-# Starts Stress Test & Tuner as root, so the tuning buttons can write to /sys.
+# Starts LinStress as root, so the tuning buttons can write to /sys.
 # pkexec cleans the environment, so the display variables are passed on by hand.
 
 if ! command -v pkexec >/dev/null 2>&1; then
-    echo "pkexec (polkit) is not installed. Start the app with: sudo -E linux-stress-oc" >&2
+    echo "pkexec (polkit) is not installed. Start the app with: sudo -E linstress" >&2
     exit 1
 fi
 
@@ -20,4 +20,4 @@ for name in DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_RUNTIME_DIR; do
     fi
 done
 
-exec pkexec "$@" /usr/bin/linux-stress-oc
+exec pkexec "$@" /usr/bin/linstress

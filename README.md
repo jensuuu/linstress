@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Stress Test &amp; Tuner" width="600">
+  <img src="assets/logo.png" alt="LinStress" width="600">
 </p>
 
 # LinStress(GPUI)
@@ -67,23 +67,21 @@ Or one at a time: `make deb`, `make rpm`, `make appimage`.
 
 | Package | Install |
 |---|---|
-| `.deb` | `sudo apt install ./dist/linux-stress-oc_*.deb` |
-| `.rpm` | `sudo dnf install ./dist/linux-stress-oc-*.rpm` |
+| `.deb` | `sudo apt install ./dist/linstress_*.deb` |
+| `.rpm` | `sudo dnf install ./dist/linstress-*.rpm` |
 | AppImage | `chmod +x dist/*.AppImage && ./dist/*.AppImage` |
 
 - The `.deb` and `.rpm` add an application-menu entry and a second entry,
-  "Stress Test & Tuner (Administrator)", which asks for your password through
+  "LinStress (Administrator)", which asks for your password through
   polkit and starts the app as root so the tuning buttons work.
 - The AppImage does not include system libraries (Vulkan, Wayland, xkbcommon).
   Build it on an older distribution such as Ubuntu 22.04 for best compatibility,
   and start it with `sudo -E` when you need the tuning buttons.
 - Before releasing, edit the maintainer name and e-mail in `Cargo.toml`
   (`authors` and `[package.metadata.deb]`) and `packaging/*.xml`.
-- Pushing a tag like `v0.1.0` builds and publishes all three packages
-  through `.github/workflows/release.yml`.
 
 ## Icon and logo
-Sources are in `assets/` (`icons/linux-stress-oc.svg` and `logo.svg`).
+Sources are in `assets/` (`icons/linstress.svg` and `logo.svg`).
 After changing an SVG run `make icons` to re-create all PNG sizes.
 
 ### Build profiles

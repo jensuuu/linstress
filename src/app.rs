@@ -8,6 +8,7 @@ use gpui::{div, prelude::*, rgb, Context, Window};
 use crate::cpu_stress::CpuStress;
 use crate::gpu_stress::GpuStress;
 use crate::ram_stress::RamStress;
+use crate::overclock::NvidiaInfo;
 use crate::sensors::{self, CpuUsageMeter};
 use crate::{overclock, theme};
 
@@ -17,6 +18,10 @@ const MAX_RAM_SHARE_OF_FREE: u64 = 90;
 pub const RAM_STEP_MB: i32 = 256;
 /// Number of threads used by the RAM test (at most).
 const RAM_THREADS: usize = 8;
+/// Lowest core clock the NVIDIA clock lock may use (MHz) and its step size.
+const NVIDIA_CLOCK_FLOOR_MHZ: u32 = 210;
+pub const NVIDIA_CLOCK_STEP_MHZ: i32 = 30;
+pub const NVIDIA_POWER_STEP_W: i32 = 5;
 
 pub struct StressApp {
     // Live readings
@@ -39,6 +44,9 @@ pub struct StressApp {
     // Tuning
     pub target_max_mhz: u32,
     pub frequency_range: Option<(u32, u32)>, // Hardware minimum and maximum.
+    pub nvidia: Option<NvidiaInfo>,          // None = no NVIDIA GPU found.
+    pub nvidia_power_w: u32,
+    pub nvidia_clock_mhz: u32,
 
     // Helpers
     usage_meter: CpuUsageMeter,
@@ -67,6 +75,8 @@ impl StressApp {
             .map(|(_, available)| (available / 4).clamp(256, 2048) as usize)
             .unwrap_or(1024);
 
+        let nvidia = overclock::nvidia_info();
+
         Self {
             cpu_usage: 0.0,
             cpu_frequency_mhz: None,
@@ -78,9 +88,12 @@ impl StressApp {
             gpu_test: None,
             cpu_threads: sensors::logical_cpu_count(),
             ram_size_mb: default_ram_mb,
-            temperature_limit: 500.0, // A very high default, so the user can set it lower.
+            temperature_limit: 90.0,
             target_max_mhz: overclock::current_max_mhz().unwrap_or(3000),
             frequency_range: overclock::cpu_frequency_limits_mhz(),
+            nvidia,
+            nvidia_power_w: nvidia.map(|info| info.power_now_w).unwrap_or(200),
+            nvidia_clock_mhz: nvidia.map(|info| info.clock_max_mhz).unwrap_or(1500),
             usage_meter: CpuUsageMeter::new(),
             log: vec!["Ready. Tuning actions need root permission.".into()],
         }
@@ -223,6 +236,32 @@ impl StressApp {
         let result = overclock::set_cpu_max_mhz(self.target_max_mhz);
         self.log_result(result);
     }
+
+    pub fn change_nvidia_power(&mut self, delta: i32) {
+        let (min, max) = self
+            .nvidia
+            .map(|info| (info.power_min_w, info.power_max_w))
+            .unwrap_or((50, 600));
+        let new_value = (self.nvidia_power_w as i32 + delta).clamp(min as i32, max.max(min) as i32);
+        self.nvidia_power_w = new_value as u32;
+    }
+
+    pub fn change_nvidia_clock(&mut self, delta: i32) {
+        let max = self.nvidia.map(|info| info.clock_max_mhz).unwrap_or(3000);
+        let new_value = (self.nvidia_clock_mhz as i32 + delta)
+            .clamp(NVIDIA_CLOCK_FLOOR_MHZ as i32, max.max(NVIDIA_CLOCK_FLOOR_MHZ) as i32);
+        self.nvidia_clock_mhz = new_value as u32;
+    }
+
+    pub fn apply_nvidia_power(&mut self) {
+        let result = overclock::nvidia_set_power_limit(self.nvidia_power_w);
+        self.log_result(result);
+    }
+
+    pub fn apply_nvidia_clock(&mut self) {
+        let result = overclock::nvidia_lock_clocks(NVIDIA_CLOCK_FLOOR_MHZ, self.nvidia_clock_mhz);
+        self.log_result(result);
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -245,7 +284,8 @@ impl Render for StressApp {
             .flex_wrap()
             .gap_4()
             .child(self.safety_panel(cx))
-            .child(self.tuning_panel(cx));
+            .child(self.tuning_panel(cx))
+            .child(self.nvidia_panel(cx));
 
         let content = div()
             .flex()

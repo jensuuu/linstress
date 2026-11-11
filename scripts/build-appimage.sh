@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds dist/linux-stress-oc-<version>-<arch>.AppImage
+# Builds dist/linstress-<version>-<arch>.AppImage
 #
 # Usage:  ./scripts/build-appimage.sh
 # Options (environment variables):
@@ -12,7 +12,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-NAME=LinStress
+NAME=linstress
 PROFILE="${PROFILE:-release}"
 ARCH="$(uname -m)"
 VERSION="$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)"

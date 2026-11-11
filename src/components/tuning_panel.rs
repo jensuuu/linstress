@@ -1,4 +1,4 @@
-//! Tuning section: CPU frequency limit, governor and NVIDIA reset (needs root).
+//! Tuning section: CPU frequency limit and governor (needs root).
 
 use gpui::{div, prelude::*, Context, Div};
 
@@ -52,13 +52,6 @@ impl StressApp {
                     .child(button("gov-powersave", "Powersave", SURFACE_HIGH).on_click(
                         cx.listener(|this, _, _, cx| {
                             let result = overclock::set_cpu_governor("powersave");
-                            this.log_result(result);
-                            cx.notify();
-                        }),
-                    ))
-                    .child(button("nvidia-reset", "Reset NVIDIA clocks", SURFACE_HIGH).on_click(
-                        cx.listener(|this, _, _, cx| {
-                            let result = overclock::nvidia_reset_clocks();
                             this.log_result(result);
                             cx.notify();
                         }),

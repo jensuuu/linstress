@@ -58,7 +58,7 @@ appimage: ## Create an AppImage
 packages: deb rpm appimage ## Create .deb, .rpm and AppImage
 	@ls -lh dist/
 
-package: dist ## Create a plain dist/linux-stress-oc.tar.gz
+package: dist ## Create a plain dist/linstress.tar.gz
 	mkdir -p dist
 	tar -czf dist/$(BINARY).tar.gz -C target/dist $(BINARY) -C ../.. README.md LICENSE
 	@echo "Created dist/$(BINARY).tar.gz"

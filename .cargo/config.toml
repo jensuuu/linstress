@@ -1,13 +1,7 @@
 [alias]
-# cargo lint  -> clippy with warnings treated as errors
 lint = "clippy --all-targets -- -D warnings"
-# cargo dist  -> maximum optimization build
-dist = "build --profile dist"
 
-[net]
-git-fetch-with-cli = true
-
-# Optional: faster linking. Install `mold` and `clang`, then uncomment.
+# Faster linking (optional): install `mold` and `clang`, then uncomment.
 # [target.x86_64-unknown-linux-gnu]
 # linker = "clang"
 # rustflags = ["-C", "link-arg=-fuse-ld=mold"]

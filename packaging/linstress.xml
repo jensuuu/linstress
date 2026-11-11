@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>linux-stress-oc</id>
+  <id>linstress</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <name>Stress Test &amp; Tuner</name>
@@ -18,9 +18,9 @@
       <li>CPU frequency limit and governor control</li>
     </ul>
   </description>
-  <launchable type="desktop-id">linux-stress-oc.desktop</launchable>
+  <launchable type="desktop-id">linstress.desktop</launchable>
   <provides>
-    <binary>linux-stress-oc</binary>
+    <binary>linstress</binary>
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>

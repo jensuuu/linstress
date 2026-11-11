@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Stress Test &amp; Tuner</title>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#252a3a"/>
+      <stop offset="1" stop-color="#11131a"/>
+    </linearGradient>
+    <!-- Green on the left, yellow on top, red on the right: cool to hot. -->
+    <linearGradient id="heat" gradientUnits="userSpaceOnUse" x1="90" y1="0" x2="422" y2="0">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="0.5" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f87171"/>
+    </linearGradient>
+  </defs>
+
+  <!-- App tile -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#background)"/>
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="none" stroke="#2d3245" stroke-width="4"/>
+
+  <!-- Gauge: dim track (270 degrees) and the colored part on top -->
+  <path d="M137.2 374.8 A168 168 0 1 1 374.8 374.8" fill="none" stroke="#2d3245"
+        stroke-width="36" stroke-linecap="round"/>
+  <path d="M137.2 374.8 A168 168 0 1 1 421.9 229.7" fill="none" stroke="url(#heat)"
+        stroke-width="36" stroke-linecap="round"/>
+
+  <!-- CPU chip: pins first, body on top -->
+  <g stroke="#5b8cff" stroke-width="10" stroke-linecap="round">
+    <path d="M216 164v22M256 164v22M296 164v22"/>
+    <path d="M216 326v22M256 326v22M296 326v22"/>
+    <path d="M164 216h22M164 256h22M164 296h22"/>
+    <path d="M326 216h22M326 256h22M326 296h22"/>
+  </g>
+  <rect x="186" y="186" width="140" height="140" rx="26" fill="#1a1d27" stroke="#5b8cff" stroke-width="12"/>
+
+  <!-- Lightning bolt -->
+  <path d="M276 208 L232 266 H256 L240 306 L290 242 H264 Z" fill="#fbbf24" stroke="#fbbf24"
+        stroke-width="4" stroke-linejoin="round"/>
+</svg>
