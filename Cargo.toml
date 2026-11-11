@@ -1,6 +1,6 @@
 [package]
 name = "linux-stress-oc"
-version = "0.1.0"
+version = "0.1.5"
 edition = "2021"
 rust-version = "1.85"
 description = "Linux CPU stress test and tuning tool with a GPUI interface"
