@@ -2,10 +2,9 @@
   <img src="assets/logo.png" alt="Stress Test &amp; Tuner" width="600">
 </p>
 
-# Linux Stress Test & Tuner (GPUI)
+# LinStress(GPUI)
 
-A native Rust app with a GPUI interface. Tauri is not used: it renders a
-webview and cannot be combined with GPUI.
+A native Rust app with a GPUI interface.
 
 ## Features
 - Live CPU usage, frequency, CPU temperature, GPU temperature
