@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360">
+  <title>Stress Test &amp; Tuner</title>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#252a3a"/>
+      <stop offset="1" stop-color="#11131a"/>
+    </linearGradient>
+    <linearGradient id="heat" gradientUnits="userSpaceOnUse" x1="90" y1="0" x2="422" y2="0">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="0.5" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f87171"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="360" rx="40" fill="#11131a"/>
+
+  <!-- Same artwork as the app icon, scaled to 0.6 -->
+  <g transform="translate(26 26) scale(0.6)">
+    <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#background)"/>
+    <rect x="16" y="16" width="480" height="480" rx="108" fill="none" stroke="#2d3245" stroke-width="4"/>
+    <path d="M137.2 374.8 A168 168 0 1 1 374.8 374.8" fill="none" stroke="#2d3245" stroke-width="36" stroke-linecap="round"/>
+    <path d="M137.2 374.8 A168 168 0 1 1 421.9 229.7" fill="none" stroke="url(#heat)" stroke-width="36" stroke-linecap="round"/>
+    <g stroke="#5b8cff" stroke-width="10" stroke-linecap="round">
+      <path d="M216 164v22M256 164v22M296 164v22"/>
+      <path d="M216 326v22M256 326v22M296 326v22"/>
+      <path d="M164 216h22M164 256h22M164 296h22"/>
+      <path d="M326 216h22M326 256h22M326 296h22"/>
+    </g>
+    <rect x="186" y="186" width="140" height="140" rx="26" fill="#1a1d27" stroke="#5b8cff" stroke-width="12"/>
+    <path d="M276 208 L232 266 H256 L240 306 L290 242 H264 Z" fill="#fbbf24" stroke="#fbbf24" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+
+  <text x="390" y="180" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="96"
+        font-weight="700" fill="#eceff7">Stress Test</text>
+  <text x="390" y="272" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="96"
+        font-weight="700" fill="#5b8cff">&amp; Tuner</text>
+  <text x="394" y="322" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="30"
+        fill="#8b93a8">CPU · RAM · GPU · Linux</text>
+</svg>

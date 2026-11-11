@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Stress Test & Tuner
+GenericName=System Stress Test
+Comment=CPU, RAM and GPU stress tests with frequency tuning
+Exec=linux-stress-oc
+Icon=linux-stress-oc
+Terminal=false
+Categories=System;Monitor;Utility;
+Keywords=stress;benchmark;overclock;cpu;gpu;ram;temperature;
+StartupWMClass=linux-stress-oc

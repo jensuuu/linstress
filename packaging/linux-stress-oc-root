@@ -1,0 +1,23 @@
+#!/bin/sh
+# Starts Stress Test & Tuner as root, so the tuning buttons can write to /sys.
+# pkexec cleans the environment, so the display variables are passed on by hand.
+
+if ! command -v pkexec >/dev/null 2>&1; then
+    echo "pkexec (polkit) is not installed. Start the app with: sudo -E linux-stress-oc" >&2
+    exit 1
+fi
+
+# On X11 the root user also needs the login cookie.
+if [ -n "${DISPLAY:-}" ] && [ -z "${XAUTHORITY:-}" ]; then
+    XAUTHORITY="$HOME/.Xauthority"
+fi
+
+set -- env
+for name in DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_RUNTIME_DIR; do
+    eval "value=\${$name:-}"
+    if [ -n "$value" ]; then
+        set -- "$@" "$name=$value"
+    fi
+done
+
+exec pkexec "$@" /usr/bin/linux-stress-oc

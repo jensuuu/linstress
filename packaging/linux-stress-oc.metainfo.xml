@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>linux-stress-oc</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>Stress Test &amp; Tuner</name>
+  <summary>CPU, RAM and GPU stress tests with frequency tuning</summary>
+  <description>
+    <p>
+      Stress Test &amp; Tuner checks that your computer stays stable under load.
+      It shows live temperatures and frequencies, and stops every test
+      automatically when a temperature limit is reached.
+    </p>
+    <ul>
+      <li>CPU stress test with a choice of thread count</li>
+      <li>RAM test that writes patterns and counts memory errors</li>
+      <li>GPU stress test through Vulkan (NVIDIA, AMD and Intel)</li>
+      <li>CPU frequency limit and governor control</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">linux-stress-oc.desktop</launchable>
+  <provides>
+    <binary>linux-stress-oc</binary>
+  </provides>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2026-11-11"/>
+  </releases>
+</component>

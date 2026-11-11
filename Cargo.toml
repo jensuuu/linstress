@@ -1,0 +1,113 @@
+[package]
+name = "linux-stress-oc"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Linux CPU stress test and tuning tool with a GPUI interface"
+license = "MIT"
+publish = false
+authors = ["Linux Stress OC Contributors <noreply@example.com>"]
+readme = "README.md"
+keywords = ["stress-test", "overclocking", "linux", "gpui"]
+
+[dependencies]
+gpui = "0.2"
+
+# GPU stress test (compute shaders through Vulkan)
+wgpu = "24"
+pollster = "0.4"
+
+# Pinned on purpose: libc 0.2.190+ removed ENOATTR, which breaks xattr 0.2.3
+# (a dependency of GPUI's HTTP client). Remove this line once GPUI updates xattr.
+libc = "=0.2.189"
+
+# ---------------------------------------------------------------------------
+# Build profiles
+# ---------------------------------------------------------------------------
+
+# Development: fast to rebuild, but dependencies (GPUI) are optimized,
+# because an unoptimized GPUI feels very slow.
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+# Release: good speed with reasonable compile time.
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 8
+strip = "symbols"
+
+# Dist: slowest build, smallest and fastest binary. Use for releases:
+#   cargo build --profile dist
+[profile.dist]
+inherits = "release"
+lto = "fat"
+codegen-units = 1
+
+# ---------------------------------------------------------------------------
+# Packaging
+#   .deb      cargo deb          (install with: cargo install cargo-deb)
+#   .rpm      cargo generate-rpm (install with: cargo install cargo-generate-rpm)
+#   AppImage  scripts/build-appimage.sh
+# Or simply run: make packages
+# ---------------------------------------------------------------------------
+
+[package.metadata.deb]
+name = "linux-stress-oc"
+maintainer = "Linux Stress OC Contributors <noreply@example.com>"
+copyright = "2026, Linux Stress OC Contributors"
+license-file = ["LICENSE", "0"]
+section = "utils"
+priority = "optional"
+depends = "$auto, libvulkan1"
+recommends = "mesa-vulkan-drivers, pkexec | policykit-1"
+extended-description = """\
+CPU, RAM and GPU stress tests with live temperatures, an automatic safety \
+stop, and CPU frequency control. The GPU test uses Vulkan."""
+assets = [
+    ["target/release/linux-stress-oc", "usr/bin/", "755"],
+    ["packaging/linux-stress-oc-root", "usr/bin/", "755"],
+    ["packaging/linux-stress-oc.desktop", "usr/share/applications/", "644"],
+    ["packaging/linux-stress-oc-root.desktop", "usr/share/applications/", "644"],
+    ["packaging/linux-stress-oc.metainfo.xml", "usr/share/metainfo/", "644"],
+    ["assets/icons/hicolor/16x16/apps/linux-stress-oc.png", "usr/share/icons/hicolor/16x16/apps/", "644"],
+    ["assets/icons/hicolor/22x22/apps/linux-stress-oc.png", "usr/share/icons/hicolor/22x22/apps/", "644"],
+    ["assets/icons/hicolor/24x24/apps/linux-stress-oc.png", "usr/share/icons/hicolor/24x24/apps/", "644"],
+    ["assets/icons/hicolor/32x32/apps/linux-stress-oc.png", "usr/share/icons/hicolor/32x32/apps/", "644"],
+    ["assets/icons/hicolor/48x48/apps/linux-stress-oc.png", "usr/share/icons/hicolor/48x48/apps/", "644"],
+    ["assets/icons/hicolor/64x64/apps/linux-stress-oc.png", "usr/share/icons/hicolor/64x64/apps/", "644"],
+    ["assets/icons/hicolor/128x128/apps/linux-stress-oc.png", "usr/share/icons/hicolor/128x128/apps/", "644"],
+    ["assets/icons/hicolor/256x256/apps/linux-stress-oc.png", "usr/share/icons/hicolor/256x256/apps/", "644"],
+    ["assets/icons/hicolor/512x512/apps/linux-stress-oc.png", "usr/share/icons/hicolor/512x512/apps/", "644"],
+    ["assets/icons/hicolor/scalable/apps/linux-stress-oc.svg", "usr/share/icons/hicolor/scalable/apps/", "644"],
+    ["README.md", "usr/share/doc/linux-stress-oc/README.md", "644"],
+]
+
+[package.metadata.generate-rpm]
+name = "linux-stress-oc"
+summary = "CPU, RAM and GPU stress tests with frequency tuning"
+assets = [
+  { source = "target/release/linux-stress-oc", dest = "/usr/bin/linux-stress-oc", mode = "0755" },
+  { source = "packaging/linux-stress-oc-root", dest = "/usr/bin/linux-stress-oc-root", mode = "0755" },
+  { source = "packaging/linux-stress-oc.desktop", dest = "/usr/share/applications/linux-stress-oc.desktop", mode = "0644" },
+  { source = "packaging/linux-stress-oc-root.desktop", dest = "/usr/share/applications/linux-stress-oc-root.desktop", mode = "0644" },
+  { source = "packaging/linux-stress-oc.metainfo.xml", dest = "/usr/share/metainfo/linux-stress-oc.metainfo.xml", mode = "0644" },
+  { source = "assets/icons/hicolor/16x16/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/16x16/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/22x22/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/22x22/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/24x24/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/24x24/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/32x32/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/32x32/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/48x48/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/48x48/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/64x64/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/64x64/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/128x128/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/128x128/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/256x256/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/256x256/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/512x512/apps/linux-stress-oc.png", dest = "/usr/share/icons/hicolor/512x512/apps/linux-stress-oc.png", mode = "0644" },
+  { source = "assets/icons/hicolor/scalable/apps/linux-stress-oc.svg", dest = "/usr/share/icons/hicolor/scalable/apps/linux-stress-oc.svg", mode = "0644" },
+  { source = "README.md", dest = "/usr/share/doc/linux-stress-oc/README.md", mode = "0644", doc = true },
+  { source = "LICENSE", dest = "/usr/share/licenses/linux-stress-oc/LICENSE", mode = "0644" },
+]
+
+[package.metadata.generate-rpm.requires]
+vulkan-loader = "*"

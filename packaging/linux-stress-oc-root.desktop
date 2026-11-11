@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Stress Test & Tuner (Administrator)
+GenericName=System Stress Test
+Comment=Start with root permission so the tuning buttons work
+Exec=linux-stress-oc-root
+Icon=linux-stress-oc
+Terminal=false
+Categories=System;Monitor;Utility;
+Keywords=stress;overclock;root;tuning;
+StartupWMClass=linux-stress-oc
