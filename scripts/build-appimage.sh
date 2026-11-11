@@ -12,7 +12,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-NAME=linux-stress-oc
+NAME=LinStress
 PROFILE="${PROFILE:-release}"
 ARCH="$(uname -m)"
 VERSION="$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)"
@@ -47,7 +47,7 @@ cp "assets/icons/hicolor/256x256/apps/${NAME}.png" "$APPDIR/.DirIcon"
 cat > "$APPDIR/AppRun" << 'APPRUN'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "$0")")"
-exec "$HERE/usr/bin/linux-stress-oc" "$@"
+exec "$HERE/usr/bin/linstress" "$@"
 APPRUN
 chmod +x "$APPDIR/AppRun"
 
