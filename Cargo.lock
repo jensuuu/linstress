@@ -3061,6 +3061,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "linstress"
+version = "0.1.5"
+dependencies = [
+ "gpui",
+ "libc",
+ "pollster 0.4.0",
+ "wgpu",
+]
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.4.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3071,16 +3081,6 @@ name = "linux-raw-sys"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a66949e030da00e8c7d4434b251670a91556f4144941d37452769c25d58a53"
-
-[[package]]
-name = "linux-stress-oc"
-version = "0.1.5"
-dependencies = [
- "gpui",
- "libc",
- "pollster 0.4.0",
- "wgpu",
-]
 
 [[package]]
 name = "litemap"

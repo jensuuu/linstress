@@ -1,9 +1,5 @@
 //! Frequency and power tuning for Linux.
-//!
-//! IMPORTANT: Linux can only change clocks within what the hardware and
-//! firmware allow. Real CPU overclocking (multiplier/voltage) is done in the
-//! BIOS. This module controls the cpufreq limits, the governor, and NVIDIA
-//! power/clock limits. All writes need root permission.
+
 
 use std::fs;
 use std::path::PathBuf;
@@ -79,7 +75,7 @@ fn write_to_every_core(file_name: &str, value: &str) -> Result<(), String> {
 }
 
 // ---------------------------------------------------------------------------
-// NVIDIA GPU (through nvidia-smi)
+// NVIDIA GPU (through nvidia-smi) TODO
 // ---------------------------------------------------------------------------
 
 /// Sets the GPU power limit in watts.

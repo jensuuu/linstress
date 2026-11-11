@@ -23,9 +23,9 @@ fn main() {
             window_bounds: Some(WindowBounds::Windowed(bounds)),
             window_min_size: Some(size(px(min_width), px(min_height))),
             // Must match the .desktop file name, so the taskbar shows the right icon.
-            app_id: Some("linux-stress-oc".to_string()),
+            app_id: Some("linstress".to_string()),
             titlebar: Some(TitlebarOptions {
-                title: Some("Stress Test & Tuner".into()),
+                title: Some("LinStress".into()),
                 ..Default::default()
             }),
             ..Default::default()

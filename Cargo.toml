@@ -1,12 +1,12 @@
 [package]
-name = "linux-stress-oc"
+name = "linstress"
 version = "0.1.5"
 edition = "2021"
 rust-version = "1.85"
 description = "Linux CPU stress test and tuning tool with a GPUI interface"
 license = "MIT"
 publish = false
-authors = ["Linux Stress OC Contributors <noreply@example.com>"]
+authors = ["Linux Stress OC Contributors <ee@gmail.com>"]
 readme = "README.md"
 keywords = ["stress-test", "overclocking", "linux", "gpui"]
 
@@ -56,8 +56,8 @@ codegen-units = 1
 # ---------------------------------------------------------------------------
 
 [package.metadata.deb]
-name = "linux-stress-oc"
-maintainer = "Linux Stress OC Contributors <noreply@example.com>"
+name = "linstress"
+maintainer = "Linux Stress OC Contributors <ee@example.com>"
 copyright = "2026, Linux Stress OC Contributors"
 license-file = ["LICENSE", "0"]
 section = "utils"
@@ -87,7 +87,7 @@ assets = [
 ]
 
 [package.metadata.generate-rpm]
-name = "linux-stress-oc"
+name = "linstress"
 summary = "CPU, RAM and GPU stress tests with frequency tuning"
 assets = [
   { source = "target/release/linux-stress-oc", dest = "/usr/bin/linux-stress-oc", mode = "0755" },

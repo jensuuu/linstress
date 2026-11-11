@@ -1,4 +1,4 @@
-BINARY := linux-stress-oc
+BINARY := linstress
 
 .DEFAULT_GOAL := help
 
